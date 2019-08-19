@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div class="bg-purple-100">
+    <header class="bg-white shadow-md p-4 text-center font-bold text-purple-900">
+      <nuxt-link to="/">7 clique para as estrelas</nuxt-link>
+    </header>
     <nuxt />
   </div>
 </template>
