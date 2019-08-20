@@ -12,7 +12,8 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Oswald:400,700&display=swap' }
     ]
   },
   /*
@@ -33,8 +34,7 @@ export default {
   ** Nuxt.js dev-modules
   */
   devModules: [
-    // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss',
+
   ],
   /*
   ** Nuxt.js modules
@@ -43,6 +43,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    ['bootstrap-vue/nuxt'],
   ],
   /*
   ** Axios module configuration

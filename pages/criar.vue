@@ -1,45 +1,76 @@
 <template>
-  <div class="h-screen flex items-start justify-center pb-16">
-    <div class="w-full px-4 pt-8">
-      <label class="flex flex-col text-purple-700 font-bold" for>
-        Verbete inicial
-        <small class="text-purple-400">Título do verbete, ex: "Nélson Gonçalves"</small>
-        <input v-model="urlInicio" class="p-4 mt-2 border-4 border-purple-300" type="text" />
-      </label>
-      <label class="flex flex-col text-purple-700 font-bold mt-8" for>
-        Título do verbete, ex: "Balaústre"
-        <small
-          class="text-purple-400"
-        >Título do verbete, ex: "Balaústre"</small>
-        <input v-model="urlFim" class="p-4 mt-2 border-4 border-purple-300" type="text" />
-      </label>
-      <a
-        @click.prevent="iniciaJogo"
-        class="mt-16 bg-purple-600 border-4 border-purple-800 text-center text-white font-bold p-4 uppercase block"
-      >começar</a>
+  <main>
+    <div class="container">
+      <form v-on:submit.prevent="iniciaJogo" class="col-8 mx-auto">
+        <label for="verbeteInicial">
+          Verbete inicial
+          <small>ex: "Nélson Gonçalves"</small>
+          <input id="verbeteInicial" v-model="verbeteInicial" type="text">
+        </label>
+        <label class="final" for="verbeteFinal">
+          Verbete final
+          <small>ex: "Balaústre"</small>
+          <input id="verbeteFinal" v-model="verbeteFinal" type="text">
+        </label>
+
+        <input class="btn" type="submit" value="Começar">
+      </form>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
 export default {
   data: function() {
     return {
-      urlInicio: "Nélson Gonçalves",
-      urlFim: "Balaústre"
+      verbeteInicial: "Nélson Gonçalves",
+      verbeteFinal: "Balaústre"
     };
   },
   methods: {
     iniciaJogo() {
-      this.$store.commit('atualizaInicio', this.urlInicio);
-      this.$store.commit('addHistorico', this.urlInicio);
-      this.$store.commit('atualizaAtual', this.urlInicio);
-      this.$store.commit('atualizaFim', this.urlFim);
-      this.$router.push({ path: '/jogo'});
+      let verbeteInicial = this.verbeteInicial;
+      let verbeteFinal = this.verbeteFinal;
+      
+      this.$store.dispatch('iniciaJogo', {verbeteInicial, verbeteFinal})
     }
   }
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+main {
+  min-height: calc(100vh - 226px);
+  display: flex;
+  align-items: center;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+
+  .final{
+    margin-top: 60px;
+    margin-bottom: 80px;
+  }
+
+  label{
+  display: flex;
+  flex-direction: column;
+  color: #F78F00;
+  font-size: 28px;
+  text-transform: uppercase;
+
+  small{
+    color: #430475;
+    margin-bottom: 20px;
+  }
+
+  input{
+    padding: 10px 20px;
+  }
+}
+
+
+}
 </style>

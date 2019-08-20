@@ -1,58 +1,70 @@
 <template>
-  <div class="bg-purple-100">
-    <header class="bg-white shadow-md p-4 text-center font-bold text-purple-900">
-      <nuxt-link to="/">7 clique para as estrelas</nuxt-link>
+  <div>
+    <header class="mainHeader">
+      <div class="container">
+        <nuxt-link to="/">7 cliques para as estrelas</nuxt-link>
+      </div>      
     </header>
     <nuxt />
+    <footer class="creditFooter">
+      <div class="container">
+        sergiooak.dev © 2019
+      </div>      
+    </footer>
   </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<style lang="scss">
+body{
+  background: #F7FAFC;
+  font-family: 'Oswald', sans-serif;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
+.mainHeader{
+  background: #430475;
+  height: 80px;
+
+  .container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    a{
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 20px;
+    }
+  }
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+.creditFooter{
+  .container{
+    padding-top: 60px;
+    padding-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    border-top: 2px solid #F78F00;
+    color: #430475;
+    text-transform: uppercase;
+  }
+  
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+.btn{
+  color: #430475;
+  border: 3px solid #430475;
+  border-radius: 0;
+  background: rgba(#430475 , 0);
+  font-family: Oswald;
+  font-size: 28px;
+  text-align: center;
+  text-transform: uppercase;
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+  &:hover{
+    color: #fff;
+    background: rgba(#430475 , 1);
+  }
 }
+  
 </style>

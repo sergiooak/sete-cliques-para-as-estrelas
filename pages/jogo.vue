@@ -1,27 +1,37 @@
 <template>
-  <div class="h-screen flex flex-col items-center justify-start pb-16">
-    <div class="w-full px-6 pt-8 pb-4 flex justify-between items-center">
-      <div class="flex items-center">
-        cliques
-        <h2 class="text-xl font-bold ml-2">{{ cliques }}</h2>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-9 area-do-jogo">
+          <header>
+            <p>Verbete atual: {{ jogo.verbeteAtual }}</p>
+            <p>Cliques: {{ jogo.cliques }}</p>
+            <p>Tempo: {{ jogo.tempo }}</p>
+            <p>Historico: {{ jogo.historico }}</p>
+          </header>
+          <article>
+            <iframe :src="url" frameborder="0" onLoad="console.log('atualizou')" ></iframe>
+          </article>
+        </div>
+        <aside class="col-3">
+          <header>
+            <p>Links no verbete atual:</p>
+          </header>
+          <div class="links">
+            <div>
+              <p>Links no verbete atual: {{ jogo.linksVerbeteAtual.length }}</p>
+            </div>
+            <ul>
+              <li
+                v-for="link in jogo.linksVerbeteAtual"
+                @click="atualizaJogo(link.title)"
+              >{{ link.title }}</li>
+            </ul>
+          </div>
+        </aside>
       </div>
-      <div @click="mostraHistorico">ver histórico atual</div>
     </div>
-    <div class="border-t-2 border-purple-600 w-full px-6 py-4 flex justify-between items-center">
-      <label class="flex flex-col text-purple-700 font-bold" for>
-        Pesquisar
-        <small class="text-purple-400">Filtre e clique no link</small>
-        <input v-model="filtro" class="p-4 mt-2 border-4 border-purple-300" type="text" />
-      </label>
-    </div>
-    <div class="border-t-2 border-purple-600 w-full px-6 pt-4 flex justify-between items-center">
-      <ul>
-        <li v-for="link in links" @click="mudaPagina(link.title)">
-            {{ link.title }}
-        </li>
-      </ul>
-    </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -32,35 +42,74 @@ export default {
     };
   },
   computed: {
-    cliques() {
-      return this.$store.state.cliques;
+    jogo() {
+      return this.$store.state;
     },
-    paginaAtual() {
-      return this.$store.state.paginaAtual;
-    },
-    links() {
-      return this.$store.state.linksPaginaAtual;
-    },
-    historico() {
-      return this.$store.state.historico;
+    url() {
+      if (this.jogo.verbeteAtual) {
+        return `https://pt.wikipedia.org/wiki/${this.jogo.verbeteAtual}`;
+      } else {
+        return `https://pt.wikipedia.org/`;
+      }
     }
   },
   methods: {
-    mostraHistorico() {
-      alert(this.historico);
+    atualizaJogo(titulo) {
+      this.$store.dispatch('atualizaJogo', titulo)
     },
-    mudaPagina(titulo) {
-      this.$store.commit('addHistorico', titulo);
-      this.$store.commit('atualizaAtual', titulo);
-      this.$store.commit('incrementaClique');
-      this.$store.dispatch('pegaLinks', titulo);    
-    }
   },
   mounted: function() {
-    this.$store.dispatch('pegaLinks', this.paginaAtual)
   }
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+main {
+  .container {
+    .row {
+      min-height: calc(100vh - 226px);
+    }
+  }
+}
+
+.area-do-jogo {
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    // background: red;
+    height: 90px;
+    margin: 20px 0px;
+  }
+  article {
+    width: 100%;
+    height: 550px;
+    border: 2px solid #f78f00;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+aside {
+  header {
+    // background: red;
+    height: 90px;
+    margin: 20px 0px;
+  }
+
+  .links {
+    height: 550px;
+    div {
+      height: 40px;
+    }
+
+    ul {
+      height: 510px;
+      overflow-y: auto;
+    }
+  }
+}
 </style>

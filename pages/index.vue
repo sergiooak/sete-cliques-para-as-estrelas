@@ -1,24 +1,34 @@
 <template>
-  <div class="h-screen flex items-center justify-center pb-16">
-    <div class="w-full px-4">
-      <h1 class="mx-4 text-center mb-12 text-4xl text-purple-600">
-        Vamos começar um novo jogo?
-      </h1>
-      <nuxt-link to="/criar" class="bg-purple-600 border-4 border-purple-800 text-center text-white font-bold p-4 uppercase block">
-        criar novo jogo
-      </nuxt-link>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 mx-auto">
+          <h2>Vamos começar um novo jogo?</h2>
+          <nuxt-link to="/criar" class="btn d-block">Criar novo jogo</nuxt-link>
+        </div>
+      </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
 export default {
-  components: {
-    
-  }
-}
+  components: {}
+};
 </script>
 
-<style>
+<style scoped>
+main {
+  min-height: calc(100vh - 226px);
+  display: flex;
+  align-items: center;
+}
+h2 {
+  font-size: 56px;
+  text-align: center;
+  color: #f78f00;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
 
 </style>
