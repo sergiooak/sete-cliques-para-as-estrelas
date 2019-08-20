@@ -2,6 +2,8 @@
 
 > Companion app para o jogo sete clique das estrelas
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f5235710-a9f1-4b8d-af3c-b6c92a17a59a/deploy-status)](https://app.netlify.com/sites/sete-cliques-para-as-estrelas/deploys)
+
 ## Build Setup
 
 ``` bash
