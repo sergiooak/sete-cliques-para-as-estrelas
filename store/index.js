@@ -49,11 +49,23 @@ export const actions = {
         `https://cors-anywhere.herokuapp.com/https://pt.wikipedia.org/w/api.php?action=query&titles=${titulo}&prop=links&format=json&pllimit=500`
       )
       .then(function(response) {
-        let object = response.query.pages;
-        context.commit(
-          "atualizaLinksVerbeteAtual",
-          object[Object.keys(object)[0]].links
-        );
+        if (response.continue) {
+          this.$axios
+          .$get(
+            `https://cors-anywhere.herokuapp.com/https://pt.wikipedia.org/w/api.php?action=query&titles=${titulo}&prop=links&format=json&pllimit=500&plcontinue=${response.continue.plcontinue}`
+          ).then(function(response) {
+            let object = response.query.pages;
+            context.commit("incrementaLinksVerbeteAtual",object[Object.keys(object)[0]].links);
+          }
+          
+          );
+        } else {
+          let object = response.query.pages;
+          context.commit(
+            "atualizaLinksVerbeteAtual",
+            object[Object.keys(object)[0]].links
+          );
+        }
       })
       .catch(function(error) {
         // handle error
@@ -67,6 +79,7 @@ export const actions = {
     context.commit("resetaCliques");
     context.commit("resetaTempo");
     context.commit("resetaHistorico");
+    context.commit("addHistorico", payload.verbeteInicial);
 
     context.dispatch("pegaLinks", payload.verbeteInicial);
 
@@ -75,5 +88,7 @@ export const actions = {
   atualizaJogo(context, titulo) {
     context.commit("atualizaVerbeteAtual", titulo);
     context.dispatch("pegaLinks", titulo);
+    context.commit("incrementaCliques");
+    context.commit("addHistorico", titulo);
   }
 };
