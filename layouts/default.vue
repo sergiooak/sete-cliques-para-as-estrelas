@@ -39,8 +39,8 @@ body{
 
 .creditFooter{
   .container{
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: flex;
     justify-content: center;
     border-top: 2px solid #F78F00;

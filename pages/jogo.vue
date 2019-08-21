@@ -4,10 +4,14 @@
       <div class="row">
         <div class="col-9 area-do-jogo">
           <header>
-            <p>Verbete atual: {{ jogo.verbeteAtual }}</p>
-            <p>Cliques: {{ jogo.cliques }}</p>
-            <p>Tempo: {{ jogo.tempo }}</p>
-            <p>Historico: {{ jogo.historico }}</p>
+            <div class="desc">
+              <p>Verbete atual: <strong>{{ jogo.verbeteAtual }}</strong> | <small>{{ jogo.linksVerbeteAtual.length }} links</small></p>
+              <p>Cliques: {{ jogo.cliques }}</p>
+            </div>
+            <div class="historico">
+              <span v-for="historico in jogo.historico">{{historico}}</span>
+            </div>
+            
           </header>
           <article>
             <iframe :src="url" frameborder="0" onLoad="console.log('atualizou')" ></iframe>
@@ -15,12 +19,13 @@
         </div>
         <aside class="col-3">
           <header>
-            <p>Links no verbete atual:</p>
+            <label class="final" for="filtroLinks">
+              Filtrar
+              <small>Digite um termo para filtrar os links</small>
+              <input id="verbeteFinal" v-model="filtroLinks" type="text">
+            </label>
           </header>
           <div class="links">
-            <div>
-              <p>Links no verbete atual: {{ jogo.linksVerbeteAtual.length }}</p>
-            </div>
             <ul>
               <li
                 v-for="link in jogo.linksVerbeteAtual"
@@ -75,20 +80,27 @@ main {
 .area-do-jogo {
   header {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
     // background: red;
-    height: 90px;
+    min-height: 90px;
     margin: 20px 0px;
+
+    .desc{
+      display: flex;
+      justify-content: space-between;
+    }
   }
   article {
+    position: relative;
     width: 100%;
-    height: 550px;
+    height: 675px;
     border: 2px solid #f78f00;
 
     iframe {
       width: 100%;
       height: 100%;
+      overflow-x: hidden;      
     }
   }
 }
@@ -96,20 +108,52 @@ main {
 aside {
   header {
     // background: red;
-    height: 90px;
+    min-height: 105px;
     margin: 20px 0px;
   }
 
   .links {
-    height: 550px;
-    div {
-      height: 40px;
-    }
-
     ul {
-      height: 510px;
+      height: 660px;
       overflow-y: auto;
+      list-style: none;
+      padding: 0;
+
+      li{
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover{
+          background: rgba(#430475 , .9);
+          color: #fff;
+        }
+      }
     }
+    
   }
 }
+
+label{
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  color: #430475;
+  text-transform: uppercase;
+
+  small{
+    font-size: 14px;
+    color: #430475;
+    text-transform: initial;
+    margin-top: -5px;
+    margin-bottom: 9px;
+  }
+
+  input{
+    padding: 10px 20px;
+    background: #fff;
+    border: 3px solid #430475;
+  }
+}
+
 </style>
