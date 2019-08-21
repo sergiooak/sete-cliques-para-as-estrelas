@@ -9,7 +9,7 @@
               <p>Cliques: {{ jogo.cliques }}</p>
             </div>
             <div class="historico">
-              <span v-for="historico in jogo.historico">{{historico}}</span>
+              <span v-for="historico in jogo.historico" :key="historico">{{historico}}</span>
             </div>
             
           </header>
@@ -29,6 +29,7 @@
             <ul>
               <li
                 v-for="link in jogo.linksVerbeteAtual"
+                :key="link.title"
                 @click="atualizaJogo(link.title)"
               >{{ link.title }}</li>
             </ul>
